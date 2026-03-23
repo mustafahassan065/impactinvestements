@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impact Investments — Premier Stocks & Options Trading Community | Bronze · Silver · Gold · Lifetime</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,800&family=Outfit:wght@300;400;500;600;700;800&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{background:#0c0c0e;color:#c8b99a;font-family:'Outfit',sans-serif;overflow-x:hidden}
+.font-serif{font-family:'Playfair Display',serif}
+.font-mono{font-family:'Courier Prime',monospace}
+
+/* Gold palette */
+:root{
+  --bg:#0c0c0e;--surface:#111113;--card:#141416;--card2:#191920;
+  --border:#2a2820;--borderl:#3a3628;
+  --gold:#c9a84c;--goldl:#e2c068;--goldd:#a07830;--goldp:#f0d080;
+  --cream:#f5edd8;--creamd:#e8d8b8;
+  --bronze:#cd7f32;--silver:#a8a9ad;--platinum:#e5e4e2;
+  --white:#faf6ee;--muted:#7a6a50;--text:#c8b99a
+}
+
+/* Noise texture */
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.02'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0
+}
+
+/* Gold gradient text */
+.text-gold-grad{
+  background:linear-gradient(135deg,#a07830 0%,#e2c068 40%,#f0d080 55%,#c9a84c 70%,#a07830 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text
+}
+.text-gold-grad-anim{
+  background:linear-gradient(90deg,#a07830,#e2c068,#f0d080,#c9a84c,#a07830);
+  background-size:300% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:gold-flow 5s linear infinite
+}
+@keyframes gold-flow{to{background-position:300% center}}
+
+/* Gold rule */
+.rule-gold{height:1px;background:linear-gradient(90deg,transparent,#c9a84c,transparent)}
+.rule-thin{height:1px;background:rgba(201,168,76,.2)}
+
+/* Ticker */
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ticker-anim{animation:ticker 30s linear infinite}
+
+/* Float */
+@keyframes float-g{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.float-g{animation:float-g 5s ease infinite}
+.float-g-d{animation:float-g 6s ease 1.2s infinite}
+
+/* Reveal */
+.rev{opacity:0;transform:translateY(18px);transition:opacity .65s ease,transform .65s ease}
+.rev.vis{opacity:1;transform:none}
+.d1{transition-delay:.12s}.d2{transition-delay:.24s}.d3{transition-delay:.36s}
+
+/* Card hover */
+.ch{transition:transform .22s,border-color .25s,box-shadow .25s}
+.ch:hover{transform:translateY(-5px)}
+
+/* Gold glow */
+@keyframes gold-pulse{0%,100%{box-shadow:0 0 0 0 rgba(201,168,76,.35)}70%{box-shadow:0 0 0 10px rgba(201,168,76,0)}}
+.gold-pulse{animation:gold-pulse 2.5s ease infinite}
+
+/* Tier badge colors */
+.tier-bronze{background:linear-gradient(135deg,#8B4513,#cd7f32,#8B4513);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.tier-silver{background:linear-gradient(135deg,#888,#d4d4d4,#aaa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.tier-gold{background:linear-gradient(135deg,#a07830,#f0d080,#c9a84c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.tier-plat{background:linear-gradient(135deg,#888,#fff,#ccc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* Card border glow on hover */
+.bronze-card:hover{border-color:rgba(205,127,50,.5)!important;box-shadow:0 20px 50px rgba(0,0,0,.6),0 0 20px rgba(205,127,50,.1)}
+.silver-card:hover{border-color:rgba(168,169,173,.4)!important;box-shadow:0 20px 50px rgba(0,0,0,.6),0 0 20px rgba(168,169,173,.1)}
+.gold-card:hover{border-color:rgba(201,168,76,.5)!important;box-shadow:0 20px 50px rgba(0,0,0,.6),0 0 20px rgba(201,168,76,.15)}
+.plat-card:hover{box-shadow:0 20px 50px rgba(0,0,0,.6),0 0 30px rgba(201,168,76,.2)!important}
+
+/* Hamburger */
+#mob-menu{display:none;flex-direction:column;background:#0c0c0e;border-top:1px solid rgba(201,168,76,.15);padding:16px 20px;gap:4px}
+#mob-menu.open{display:flex}
+#hl1,#hl2,#hl3{transition:transform .25s,opacity .25s;transform-origin:center}
+.ham-open #hl1{transform:translateY(7px) rotate(45deg)}
+.ham-open #hl2{opacity:0;transform:scaleX(0)}
+.ham-open #hl3{transform:translateY(-7px) rotate(-45deg)}
+
+/* Check icon */
+.check-gold::before{content:'✦';color:#c9a84c;margin-right:10px;font-size:.7rem}
+
+/* Section number */
+.sec-num{font-family:'Courier Prime',monospace;font-size:.75rem;color:rgba(201,168,76,.4);letter-spacing:.2em;text-transform:uppercase}
+</style>
+</head>
+<body style="background:#0c0c0e">
+
+<!-- TOP TICKER -->
+<div style="background:linear-gradient(90deg,#111113,#1a1810,#111113);border-bottom:1px solid rgba(201,168,76,.18);padding:10px 0;overflow:hidden">
+  <div class="ticker-anim flex gap-16 w-max items-center">
+    <div class="flex items-center gap-12 whitespace-nowrap">
+      <span class="font-serif italic text-[#c9a84c] text-sm">✦ Impact Investments</span>
+      <span class="font-mono text-[#c9a84c]/20 text-sm">·</span>
+      <span class="font-mono text-xs text-[#7a6a50] tracking-widest uppercase">Empowering Traders of All Levels</span>
+      <span class="font-mono text-[#c9a84c]/20 text-sm">·</span>
+      <span class="font-serif italic text-[#c9a84c] text-sm">CapitalFlow.app · Proprietary Option Flow</span>
+      <span class="font-mono text-[#c9a84c]/20 text-sm">·</span>
+      <span class="font-mono text-xs text-[#7a6a50] tracking-widest uppercase">Bronze $20 · Silver $65 · Gold $100 · Lifetime $2,000</span>
+      <span class="font-mono text-[#c9a84c]/20 text-sm">·</span>
+      <span class="font-serif italic text-[#c9a84c] text-sm">Real-Time Signals · Daily Live Calls · 30% Affiliate</span>
+      <span class="font-mono text-[#c9a84c]/20 text-sm">·</span>
+    </div>
+    <div class="flex items-center gap-12 whitespace-nowrap">
+      <span class="font-serif italic text-[#c9a84c] text-sm">✦ Impact Investments</span>
+      <span class="font-mono text-[#c9a84c]/20 text-sm">·</span>
+      <span class="font-mono text-xs text-[#7a6a50] tracking-widest uppercase">Empowering Traders of All Levels</span>
+      <span class="font-mono text-[#c9a84c]/20 text-sm">·</span>
+      <span class="font-serif italic text-[#c9a84c] text-sm">CapitalFlow.app · Proprietary Option Flow</span>
+      <span class="font-mono text-[#c9a84c]/20 text-sm">·</span>
+      <span class="font-mono text-xs text-[#7a6a50] tracking-widest uppercase">Bronze $20 · Silver $65 · Gold $100 · Lifetime $2,000</span>
+      <span class="font-mono text-[#c9a84c]/20 text-sm">·</span>
+      <span class="font-serif italic text-[#c9a84c] text-sm">Real-Time Signals · Daily Live Calls · 30% Affiliate</span>
+      <span class="font-mono text-[#c9a84c]/20 text-sm">·</span>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="sticky top-0 z-50 backdrop-blur-2xl" style="background:rgba(12,12,14,.95);border-bottom:1px solid rgba(201,168,76,.12)">
+  <div class="max-w-7xl mx-auto px-5 lg:px-10 h-[70px] flex items-center justify-between">
+
+    <a href="#" class="flex items-center gap-3 no-underline flex-shrink-0">
+      <div class="w-9 h-9 rounded-lg flex items-center justify-center relative gold-pulse" style="background:linear-gradient(135deg,#a07830,#c9a84c,#f0d080)">
+        <span class="font-serif italic font-bold text-black text-sm">II</span>
+      </div>
+      <div>
+        <div class="font-serif font-bold text-[#f5edd8] text-lg leading-none tracking-wide">Impact Investments</div>
+        <div class="font-mono text-[9px] text-[#c9a84c]/50 tracking-widest uppercase mt-0.5">Premier Trading Community · Est. 2022</div>
+      </div>
+    </a>
+
+    <ul class="hidden lg:flex items-center gap-7 list-none">
+      <li><a href="#features"  class="text-[#7a6a50] text-sm font-medium hover:text-[#c9a84c] transition-colors no-underline">What's Inside</a></li>
+      <li><a href="#tiers"     class="text-[#7a6a50] text-sm font-medium hover:text-[#c9a84c] transition-colors no-underline">Membership Tiers</a></li>
+      <li><a href="#jt"        class="text-[#7a6a50] text-sm font-medium hover:text-[#c9a84c] transition-colors no-underline">About JT</a></li>
+      <li><a href="#reviews"   class="text-[#7a6a50] text-sm font-medium hover:text-[#c9a84c] transition-colors no-underline">Community</a></li>
+      <li><a href="#pricing"   class="text-[#7a6a50] text-sm font-medium hover:text-[#c9a84c] transition-colors no-underline">Pricing</a></li>
+    </ul>
+
+    <div class="flex items-center gap-3">
+      <a href="https://whop.com/impact-investments/gold-tier-f5?a=digitalartlab"
+         class="hidden lg:inline-flex items-center gap-2 font-semibold text-black text-sm px-5 py-2.5 rounded-lg transition-all no-underline"
+         style="background:linear-gradient(135deg,#a07830,#c9a84c);box-shadow:0 4px 14px rgba(201,168,76,.3)">
+        ✦ Join Impact
+      </a>
+      <button id="ham-btn" class="lg:hidden flex flex-col gap-1.5 p-2 rounded-lg hover:bg-[#c9a84c]/08 transition-colors" aria-label="Toggle menu" aria-expanded="false">
+        <span id="hl1" class="block w-6 h-0.5 rounded-full" style="background:#c9a84c"></span>
+        <span id="hl2" class="block w-6 h-0.5 rounded-full" style="background:#c9a84c"></span>
+        <span id="hl3" class="block w-6 h-0.5 rounded-full" style="background:#c9a84c"></span>
+      </button>
+    </div>
+  </div>
+
+  <div id="mob-menu" role="navigation">
+    <a href="#features" class="mob-lnk text-[#c8b99a] hover:text-[#c9a84c] text-sm font-medium py-3 px-3 rounded-lg hover:bg-[#c9a84c]/06 transition-colors no-underline">📊 What's Inside</a>
+    <a href="#tiers"    class="mob-lnk text-[#c8b99a] hover:text-[#c9a84c] text-sm font-medium py-3 px-3 rounded-lg hover:bg-[#c9a84c]/06 transition-colors no-underline">🏆 Membership Tiers</a>
+    <a href="#jt"       class="mob-lnk text-[#c8b99a] hover:text-[#c9a84c] text-sm font-medium py-3 px-3 rounded-lg hover:bg-[#c9a84c]/06 transition-colors no-underline">👤 About JT</a>
+    <a href="#reviews"  class="mob-lnk text-[#c8b99a] hover:text-[#c9a84c] text-sm font-medium py-3 px-3 rounded-lg hover:bg-[#c9a84c]/06 transition-colors no-underline">⭐ Community</a>
+    <a href="#pricing"  class="mob-lnk text-[#c8b99a] hover:text-[#c9a84c] text-sm font-medium py-3 px-3 rounded-lg hover:bg-[#c9a84c]/06 transition-colors no-underline">💳 Pricing</a>
+    <a href="#faq"      class="mob-lnk text-[#c8b99a] hover:text-[#c9a84c] text-sm font-medium py-3 px-3 rounded-lg hover:bg-[#c9a84c]/06 transition-colors no-underline">❓ FAQ</a>
+    <div style="border-top:1px solid rgba(201,168,76,.12);padding-top:16px;margin-top:8px;display:flex;flex-direction:column;gap:10px">
+      <a href="https://whop.com/impact-investments/gold-tier-f5?a=digitalartlab"
+         class="mob-lnk block text-center text-black font-bold text-sm px-5 py-3.5 rounded-xl no-underline"
+         style="background:linear-gradient(135deg,#a07830,#c9a84c)">
+        ✦ Join Impact Investments
+      </a>
+      <a href="https://whop.com/impact-investments?a=digitalartlab"
+         class="mob-lnk block text-center text-[#c9a84c] font-medium text-sm px-5 py-3 rounded-xl no-underline"
+         style="border:1px solid rgba(201,168,76,.2)">
+        View on Whop →
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="relative overflow-hidden" style="min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:80px 0 60px">
+  <!-- Background image overlay -->
+  <div class="absolute inset-0">
+    <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1800&q=70&auto=format&fit=crop"
+         alt="" class="w-full h-full object-cover" style="filter:saturate(.2) brightness(.15)">
+    <div class="absolute inset-0" style="background:linear-gradient(135deg,rgba(12,12,14,.97) 0%,rgba(12,12,14,.85) 50%,rgba(20,15,5,.95) 100%)"></div>
+  </div>
+  <!-- Gold radial glow -->
+  <div class="absolute top-0 right-0 w-[700px] h-[700px] pointer-events-none" style="background:radial-gradient(ellipse,rgba(201,168,76,.07) 0%,transparent 65%);transform:translate(20%,-20%)"></div>
+  <div class="absolute bottom-0 left-0 w-[500px] h-[500px] pointer-events-none" style="background:radial-gradient(ellipse,rgba(201,168,76,.04) 0%,transparent 65%);transform:translate(-20%,20%)"></div>
+
+  <div class="max-w-7xl mx-auto px-5 lg:px-10 relative z-10 w-full">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+
+      <!-- LEFT -->
+      <div class="lg:col-span-7">
+        <!-- Gold eyebrow -->
+        <div class="flex items-center gap-4 mb-8 rev">
+          <div class="h-px w-10" style="background:#c9a84c"></div>
+          <span class="font-mono text-xs text-[#c9a84c] tracking-widest uppercase font-bold">Est. 2022 · @tjthetrader · Premier Options Community</span>
+          <div class="h-px flex-1 max-w-xs" style="background:linear-gradient(90deg,#c9a84c,transparent)"></div>
+        </div>
+
+        <h1 class="font-serif font-bold text-[#f5edd8] leading-none mb-4 rev" style="font-size:clamp(2.8rem,7vw,7rem);line-height:.92">
+          Turn Potential<br>Into <span class="text-gold-grad-anim italic">Profits.</span>
+        </h1>
+        <div class="rule-gold mb-6 rev" style="max-width:500px"></div>
+
+        <p class="text-[#7a6a50] text-base lg:text-lg leading-relaxed mb-8 max-w-xl font-light rev">
+          Impact Investments is the <strong class="text-[#c8b99a] font-semibold">premier trading community</strong> for stocks and options traders at every level. Powered by our proprietary <strong class="text-[#c9a84c] font-semibold">CapitalFlow.app</strong> option flow service, real-time signals, daily live calls, and a community that treats you like family — not just a subscriber.
+        </p>
+
+        <div class="flex flex-wrap gap-3 mb-10 rev">
+          <a href="https://whop.com/impact-investments/gold-tier-f5?a=digitalartlab"
+             class="inline-flex items-center gap-2 text-black font-bold text-base px-7 py-3.5 rounded-xl transition-all no-underline"
+             style="background:linear-gradient(135deg,#a07830,#c9a84c,#e2c068);box-shadow:0 6px 22px rgba(201,168,76,.3)">
+            ✦ Join Impact — From $20/mo
+          </a>
+          <a href="#tiers"
+             class="inline-flex items-center gap-2 text-[#c9a84c] font-semibold text-base px-7 py-3.5 rounded-xl transition-all no-underline"
+             style="border:1px solid rgba(201,168,76,.22);background:rgba(201,168,76,.04)">
+            Compare Tiers ↓
+          </a>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-5 text-sm text-[#7a6a50] font-medium rev">
+          <div class="flex items-center gap-1.5"><span class="text-yellow-500">★★★★★</span><span>Whop Verified</span></div>
+          <span class="w-px h-4" style="background:rgba(201,168,76,.18)"></span>
+          <span>4 Membership Tiers</span>
+          <span class="w-px h-4" style="background:rgba(201,168,76,.18)"></span>
+          <span>CapitalFlow.app Included</span>
+          <span class="w-px h-4" style="background:rgba(201,168,76,.18)"></span>
+          <span class="text-[#c9a84c] font-semibold">30% Affiliate</span>
+        </div>
+      </div>
+
+      <!-- RIGHT — gold stat panel -->
+      <div class="lg:col-span-5 hidden lg:flex justify-center items-center relative h-[500px]">
+
+        <!-- Main stat card -->
+        <div class="absolute right-0 top-12 float-g" style="width:290px">
+          <div class="rounded-2xl overflow-hidden" style="background:#141416;border:1px solid rgba(201,168,76,.25);box-shadow:0 20px 60px rgba(0,0,0,.7)">
+            <div class="px-5 py-4 flex items-center justify-between" style="background:linear-gradient(90deg,rgba(201,168,76,.1),rgba(20,15,5,.9));border-bottom:1px solid rgba(201,168,76,.15)">
+              <span class="font-serif italic text-[#c9a84c] font-semibold">Impact Investments</span>
+              <span class="font-mono text-[10px] text-[#c9a84c]/50 uppercase tracking-wider">Verified</span>
+            </div>
+            <div style="padding:20px">
+              <div class="font-mono text-[10px] text-[#7a6a50] uppercase tracking-widest mb-4">CapitalFlow.app · Option Flow</div>
+              <div class="space-y-2.5">
+                <div class="flex items-center justify-between rounded-lg px-4 py-3" style="background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.12)">
+                  <span class="font-mono text-xs text-[#c8b99a]">SPY Calls</span>
+                  <span class="font-mono text-xs text-emerald-400 font-bold">BULLISH SWEEP ▲</span>
+                </div>
+                <div class="flex items-center justify-between rounded-lg px-4 py-3" style="background:rgba(201,168,76,.04)">
+                  <span class="font-mono text-xs text-[#c8b99a]">AAPL Options</span>
+                  <span class="font-mono text-xs text-[#c9a84c] font-bold">UNUSUAL FLOW ✦</span>
+                </div>
+                <div class="flex items-center justify-between rounded-lg px-4 py-3" style="background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.1)">
+                  <span class="font-mono text-xs text-[#c8b99a]">TSLA Puts</span>
+                  <span class="font-mono text-xs text-red-400 font-bold">BEARISH FLOW ▼</span>
+                </div>
+              </div>
+              <div class="mt-4 rounded-lg px-4 py-2.5" style="background:linear-gradient(90deg,rgba(201,168,76,.08),rgba(20,15,5,.5));border:1px solid rgba(201,168,76,.15)">
+                <div class="font-mono text-[10px] text-[#c9a84c] font-bold uppercase tracking-wider">Real-Time Signals · Members Only</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live call card left -->
+        <div class="absolute left-0 top-20 float-g-d" style="width:195px">
+          <div class="rounded-xl p-5" style="background:#141416;border:1px solid rgba(201,168,76,.2);box-shadow:0 8px 30px rgba(201,168,76,.08)">
+            <div class="font-mono text-[10px] text-[#c9a84c] uppercase tracking-widest mb-2 font-bold">Live Call</div>
+            <div class="font-serif text-[#f5edd8] font-semibold text-lg">Daily at<br>Market Open</div>
+            <div class="font-mono text-xs text-[#7a6a50] mt-2">All tiers · Every day</div>
+          </div>
+        </div>
+
+        <!-- Tier badge -->
+        <div class="absolute left-5 bottom-10 rounded-xl p-5 text-center" style="width:185px;background:linear-gradient(135deg,#a07830,#c9a84c);animation:float-g 4.5s ease 2s infinite">
+          <div class="font-serif italic font-bold text-black text-2xl">Gold VIP</div>
+          <div class="font-mono text-[10px] text-black/60 mt-1 uppercase tracking-wider">$100/month</div>
+          <div class="font-mono text-[10px] text-black/80 mt-1 font-bold">Full Access ✦</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats strip -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 rounded-2xl overflow-hidden mt-14 rev" style="border:1px solid rgba(201,168,76,.15);background:#111113">
+      <div class="py-9 px-7 text-center" style="border-right:1px solid rgba(201,168,76,.1)">
+        <div class="font-serif italic font-bold text-[#c9a84c] mb-2" style="font-size:3.5rem;line-height:1">4</div>
+        <div class="font-mono text-[10px] text-[#7a6a50] uppercase tracking-widest">Membership Tiers</div>
+      </div>
+      <div class="py-9 px-7 text-center" style="border-right:1px solid rgba(201,168,76,.1)">
+        <div class="font-serif italic font-bold text-[#c9a84c] mb-2" style="font-size:3.5rem;line-height:1">Daily</div>
+        <div class="font-mono text-[10px] text-[#7a6a50] uppercase tracking-widest">Live Trading Calls</div>
+      </div>
+      <div class="py-9 px-7 text-center" style="border-right:1px solid rgba(201,168,76,.1)">
+        <div class="font-serif italic font-bold text-[#c9a84c] mb-2" style="font-size:3.5rem;line-height:1">★★★★★</div>
+        <div class="font-mono text-[10px] text-[#7a6a50] uppercase tracking-widest">Whop Verified</div>
+      </div>
+      <div class="py-9 px-7 text-center">
+        <div class="font-serif italic font-bold text-[#c9a84c] mb-2" style="font-size:3.5rem;line-height:1">30%</div>
+        <div class="font-mono text-[10px] text-[#7a6a50] uppercase tracking-widest">Affiliate Rate</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO IS THIS FOR -->
+<section class="py-20" style="background:#111113;border-top:1px solid rgba(201,168,76,.1)">
+  <div class="max-w-7xl mx-auto px-5 lg:px-10">
+    <div class="text-center mb-12 rev">
+      <div class="rule-gold mb-6 max-w-xs mx-auto"></div>
+      <span class="font-mono text-[10px] text-[#c9a84c]/60 uppercase tracking-widest">Who Impact Serves</span>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+      <div class="rounded-2xl p-7 ch rev" style="background:#141416;border:1px solid rgba(201,168,76,.1)">
+        <div class="text-3xl mb-4">💼</div>
+        <div class="font-serif font-semibold text-[#f5edd8] text-xl mb-3">Busy Professionals</div>
+        <p class="text-[#7a6a50] text-sm leading-relaxed font-light">Looking to grow wealth with minimal time commitment. Real-time signals, the CapitalFlow app, and alerts do the heavy lifting — you execute and profit.</p>
+      </div>
+      <div class="rounded-2xl p-7 ch rev d1" style="background:#141416;border:1px solid rgba(201,168,76,.15)">
+        <div class="text-3xl mb-4">📈</div>
+        <div class="font-serif font-semibold text-[#f5edd8] text-xl mb-3">Aspiring Traders</div>
+        <p class="text-[#7a6a50] text-sm leading-relaxed font-light">Eager to learn proven strategies and gain mentorship to kickstart a trading career. Impact's education library and live calls accelerate growth from zero to profitable.</p>
+      </div>
+      <div class="rounded-2xl p-7 ch rev d2" style="background:#141416;border:1px solid rgba(201,168,76,.1)">
+        <div class="text-3xl mb-4">🎯</div>
+        <div class="font-serif font-semibold text-[#f5edd8] text-xl mb-3">Experienced Investors</div>
+        <p class="text-[#7a6a50] text-sm leading-relaxed font-light">Seeking advanced techniques and real-time option flow alerts to fine-tune existing strategies. The Gold tier and CapitalFlow.app deliver institutional-quality data.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="py-28" id="features" style="background:#0c0c0e;border-top:1px solid rgba(201,168,76,.08)">
+  <div class="max-w-7xl mx-auto px-5 lg:px-10">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-14 mb-16">
+      <div class="lg:col-span-4 rev">
+        <div class="rule-gold mb-6"></div>
+        <span class="sec-num">Membership Features</span>
+        <h2 class="font-serif font-bold text-[#f5edd8] leading-tight mt-3" style="font-size:clamp(2rem,4vw,3.8rem);line-height:1.05">
+          Everything to<br>Accelerate Your<br><em class="text-gold-grad">Trading Success.</em>
+        </h2>
+      </div>
+      <div class="lg:col-span-8 flex items-end rev d1">
+        <p class="text-[#7a6a50] text-base leading-relaxed font-light max-w-2xl">Impact Investments operates on a clear principle: every resource, signal, tool, and expert available to the community helps every member — regardless of tier. The tiers determine access level, not the quality of support you receive.</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+
+      <!-- CapitalFlow hero card -->
+      <div class="lg:col-span-2 rounded-2xl overflow-hidden ch rev" style="background:#141416;border:1px solid rgba(201,168,76,.18)">
+        <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=900&q=80&auto=format&fit=crop"
+             alt="" class="w-full h-40 object-cover" style="filter:saturate(.2) brightness(.4)">
+        <div style="padding:28px">
+          <div class="font-mono text-[10px] text-[#c9a84c] uppercase tracking-widest mb-3 font-bold">✦ Proprietary Tool</div>
+          <h3 class="font-serif font-bold text-[#f5edd8] text-2xl mb-3">CapitalFlow.app — Option Flow Service</h3>
+          <p class="text-[#7a6a50] text-sm leading-relaxed font-light">The crown jewel of Impact Investments. CapitalFlow.app is our proprietary option flow service — tracking unusual institutional order flow in real time. When smart money moves, you see it. Sweeps, blocks, and unusual activity flagged instantly. Available exclusively to Impact members.</p>
+          <div class="flex flex-wrap gap-2 mt-4">
+            <span class="font-mono text-[10px] text-[#c9a84c]/70 border border-[#c9a84c]/20 px-2.5 py-1 rounded">Real-Time Flow</span>
+            <span class="font-mono text-[10px] text-[#c9a84c]/70 border border-[#c9a84c]/20 px-2.5 py-1 rounded">Unusual Sweeps</span>
+            <span class="font-mono text-[10px] text-[#c9a84c]/70 border border-[#c9a84c]/20 px-2.5 py-1 rounded">Members Only</span>
+            <span class="font-mono text-[10px] text-[#c9a84c]/70 border border-[#c9a84c]/20 px-2.5 py-1 rounded">All Tiers</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Real-Time Signals -->
+      <div class="rounded-2xl p-7 ch rev d1" style="background:linear-gradient(135deg,rgba(201,168,76,.07),rgba(20,20,22,1));border:1px solid rgba(201,168,76,.2)">
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center text-xl mb-5" style="background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2)">📡</div>
+        <span class="sec-num mb-3 inline-block">Real-Time Signals</span>
+        <h3 class="font-serif font-bold text-[#f5edd8] text-2xl mb-3">Proven Strategies · Consistent Wins</h3>
+        <p class="text-[#7a6a50] text-sm leading-relaxed font-light">Daily trade signals on stocks and options — fully analyzed entries, targets, and context. From strategy to execution, Impact turns your market potential into actual profits. Every signal includes the thesis behind the trade.</p>
+      </div>
+
+      <!-- Daily Live Calls -->
+      <div class="rounded-2xl p-7 ch rev" style="background:#141416;border:1px solid rgba(201,168,76,.08)">
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center text-xl mb-5" style="background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.15)">📺</div>
+        <span class="sec-num mb-3 inline-block">Live Calls</span>
+        <h3 class="font-serif font-bold text-[#f5edd8] text-2xl mb-3">Daily Live Trading Calls</h3>
+        <p class="text-[#7a6a50] text-sm leading-relaxed font-light">Live calls held every single day. Watch experts trade in real time — see how they read the flow, find their setups, and manage positions. Unfiltered access to what trading at a high level actually looks like. Invaluable for both beginners and advanced traders.</p>
+      </div>
+
+      <!-- Education -->
+      <div class="rounded-2xl p-7 ch rev d1" style="background:#141416;border:1px solid rgba(201,168,76,.08)">
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center text-xl mb-5" style="background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.15)">🎓</div>
+        <span class="sec-num mb-3 inline-block">Education Library</span>
+        <h3 class="font-serif font-bold text-[#f5edd8] text-2xl mb-3">Extensive Educational Resources</h3>
+        <p class="text-[#7a6a50] text-sm leading-relaxed font-light">Structured educational content covering options mechanics, risk management, reading flow data, technical analysis, and trading psychology. Whether you arrived knowing nothing or looking to level up — Impact's library takes you further.</p>
+      </div>
+
+      <!-- Community -->
+      <div class="rounded-2xl p-7 ch rev d2" style="background:#141416;border:1px solid rgba(201,168,76,.08)">
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center text-xl mb-5" style="background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.15)">👥</div>
+        <span class="sec-num mb-3 inline-block">Community</span>
+        <h3 class="font-serif font-bold text-[#f5edd8] text-2xl mb-3">A Family. Not a Forum.</h3>
+        <p class="text-[#7a6a50] text-sm leading-relaxed font-light">Impact members consistently describe the community as "a family village." Admins available around the clock. Responsive mentorship. A culture where everyone wants everyone else to succeed — not just share alerts and disappear.</p>
+      </div>
+
+      <!-- Affiliate wide -->
+      <div class="md:col-span-2 lg:col-span-3 rounded-2xl p-8 ch rev" style="background:linear-gradient(135deg,rgba(201,168,76,.07),rgba(160,120,48,.04),rgba(20,20,22,1));border:1px solid rgba(201,168,76,.18)">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+          <div class="md:col-span-2">
+            <span class="sec-num mb-3 inline-block">Affiliate Programme</span>
+            <h3 class="font-serif font-bold text-[#f5edd8] text-3xl mb-3">Refer Anyone. Earn 30% — Across All Tiers.</h3>
+            <p class="text-[#7a6a50] text-sm leading-relaxed font-light max-w-2xl">Impact's affiliate programme pays 30% recurring commission on every member you refer — Bronze ($20), Silver ($65), Gold ($100), or Lifetime ($2,000). All four tiers tracked through your Whop affiliate link. Automatic payments. No minimums. The more you refer, the more you earn.</p>
+          </div>
+          <div class="text-center">
+            <div class="font-serif italic font-bold text-gold-grad" style="font-size:5rem;line-height:1">30%</div>
+            <div class="font-mono text-[10px] text-[#7a6a50] uppercase tracking-widest mt-1">All Tiers · Recurring</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JT THE FOUNDER -->
+<section class="py-24" id="jt" style="background:#111113;border-top:1px solid rgba(201,168,76,.08)">
+  <div class="max-w-7xl mx-auto px-5 lg:px-10">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
+      <div class="rev">
+        <div class="rule-gold mb-6"></div>
+        <span class="sec-num">The Founder</span>
+        <h2 class="font-serif font-bold text-[#f5edd8] mt-3 mb-5" style="font-size:clamp(2rem,4vw,3.8rem);line-height:1.05">
+          JT — <em class="text-gold-grad">@tjthetrader</em><br>Built Impact to Make<br>Trading Accessible.
+        </h2>
+        <p class="text-[#7a6a50] text-base leading-relaxed mb-5 font-light">JT founded Impact Investments in October 2022 around a single conviction: that traders of all levels deserve access to professional-grade tools and community support — not just wealthy institutional clients. He built CapitalFlow.app to bring institutional option flow data to retail traders. He built the community to make sure no one had to figure trading out alone.</p>
+        <p class="text-[#7a6a50] text-base leading-relaxed mb-8 font-light">The four-tier membership structure reflects a commitment to accessibility — Bronze at $20/month ensures cost is never a barrier to joining. Gold at $100/month provides the deepest access for serious traders ready to go all-in. And the $2,000 Lifetime option ensures your most committed members can secure their membership permanently.</p>
+
+        <blockquote style="border-left:2px solid #c9a84c;padding-left:20px;margin-bottom:24px">
+          <p class="font-serif italic text-[#f5edd8] text-xl leading-relaxed">"From Beginner to Expert and all levels, we have the right approach to accommodate everyone."</p>
+          <cite class="font-mono text-xs text-[#7a6a50] mt-2 block not-italic">— Impact Investments Community Member · Verified</cite>
+        </blockquote>
+      </div>
+
+      <div class="rev d1">
+        <div class="relative rounded-2xl overflow-hidden" style="border:1px solid rgba(201,168,76,.2);box-shadow:0 0 60px rgba(201,168,76,.06)">
+          <img src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=800&q=80&auto=format&fit=crop"
+               alt="" class="w-full h-[400px] object-cover" style="filter:saturate(.2) brightness(.5)">
+          <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(12,12,14,.97) 0%,rgba(12,12,14,.6) 50%,transparent 100%)"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-7">
+            <div class="font-serif italic text-[#c9a84c] text-2xl font-bold mb-1">JT · @tjthetrader</div>
+            <div class="font-mono text-xs text-[#c9a84c]/50 uppercase tracking-widest">Founder · Impact Investments · Oct 2022</div>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3 mt-4">
+          <div class="rounded-xl p-4 text-center ch" style="background:#141416;border:1px solid rgba(201,168,76,.12)">
+            <div class="font-serif italic font-bold text-[#c9a84c]" style="font-size:2.2rem;line-height:1">2022</div>
+            <div class="font-mono text-[9px] text-[#7a6a50] uppercase tracking-widest mt-1">Founded</div>
+          </div>
+          <div class="rounded-xl p-4 text-center ch" style="background:#141416;border:1px solid rgba(201,168,76,.12)">
+            <div class="font-serif italic font-bold text-[#c9a84c]" style="font-size:2.2rem;line-height:1">4</div>
+            <div class="font-mono text-[9px] text-[#7a6a50] uppercase tracking-widest mt-1">Membership Tiers</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="py-28" id="reviews" style="background:#0c0c0e;border-top:1px solid rgba(201,168,76,.08)">
+  <div class="max-w-7xl mx-auto px-5 lg:px-10">
+    <div class="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-8 mb-14">
+      <div class="rev">
+        <div class="rule-gold mb-5" style="max-width:120px"></div>
+        <span class="sec-num">Community Voice</span>
+        <h2 class="font-serif font-bold text-[#f5edd8] mt-3" style="font-size:clamp(2rem,4vw,3.8rem);line-height:1.05">
+          They Came In<br>Not Knowing Much.<br><em class="text-gold-grad">They Left Profitable.</em>
+        </h2>
+      </div>
+      <div class="rev rounded-2xl px-7 py-5 flex gap-7 items-center flex-shrink-0" style="background:#141416;border:1px solid rgba(201,168,76,.2)">
+        <div class="text-center">
+          <div class="font-serif italic font-bold text-[#c9a84c]" style="font-size:3.5rem;line-height:1">★★★★★</div>
+          <div class="font-mono text-xs text-[#7a6a50] mt-1 uppercase tracking-widest">Whop Verified</div>
+        </div>
+        <div class="w-px h-12" style="background:rgba(201,168,76,.15)"></div>
+        <div>
+          <div class="font-mono text-xs text-[#7a6a50] uppercase tracking-widest">Est. Oct 2022</div>
+          <div class="font-serif italic text-[#f5edd8] text-lg mt-0.5 font-semibold">Top Rated</div>
+          <div class="font-mono text-xs text-[#c9a84c] mt-1">Family Community ✦</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+      <!-- Featured -->
+      <div class="md:col-span-2 rounded-2xl p-8 ch rev" style="background:linear-gradient(135deg,rgba(201,168,76,.06),rgba(20,20,22,1));border:1px solid rgba(201,168,76,.18)">
+        <div class="flex items-center justify-between mb-5">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center font-serif italic font-bold text-black text-sm" style="background:linear-gradient(135deg,#a07830,#c9a84c)">FV</div>
+            <div><div class="font-serif font-semibold text-[#f5edd8] text-base">Family Village Member</div><div class="font-mono text-xs text-[#7a6a50]">1 month after purchase · 2024</div></div>
+          </div>
+          <span class="font-serif italic text-[#c9a84c] text-base">★★★★★</span>
+        </div>
+        <p class="font-serif italic text-[#c8b99a] text-base leading-relaxed mb-4">"Truly a great experience since joining IMPACT. The admins are very insightful, supportive and patient with you. The community is like a family village, everyone wants you to become successful in all areas in your life. IMPACT offers a variety of tools and resources to strengthen your acumen as a trader. The CapitalFlow app is the icing on top — JT built something truly special here."</p>
+        <div class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5" style="background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2)">
+          <svg class="w-3 h-3 text-[#c9a84c]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+          <span class="font-mono text-xs text-[#c9a84c] font-bold">Whop Verified</span>
+        </div>
+      </div>
+
+      <div class="rounded-2xl p-6 ch rev d1" style="background:#141416;border:1px solid rgba(201,168,76,.08)">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-2.5"><div class="w-9 h-9 rounded-xl flex items-center justify-center font-serif italic font-bold text-black text-xs" style="background:#cd7f32">BG</div><div><div class="font-serif font-semibold text-[#f5edd8] text-sm">Beginner Member</div><div class="font-mono text-xs text-[#7a6a50]">19 days after purchase</div></div></div>
+          <span class="font-serif italic text-[#c9a84c] text-sm">★★★★★</span>
+        </div>
+        <p class="font-serif italic text-[#7a6a50] text-sm leading-relaxed">"This discord is exactly what I was looking for being new to stock options. Impact is providing a safe and affordable space where I can gain the confidence I need in order to become a successful investor/trader. The group helped me, and it's like a family up there."</p>
+        <div class="mt-4 inline-flex items-center gap-1.5 rounded-full px-3 py-1.5" style="background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.15)"><svg class="w-3 h-3 text-[#c9a84c]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span class="font-mono text-xs text-[#c9a84c] font-bold">Verified · 19 days</span></div>
+      </div>
+
+      <div class="rounded-2xl p-6 ch rev" style="background:#141416;border:1px solid rgba(201,168,76,.08)">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-2.5"><div class="w-9 h-9 rounded-xl flex items-center justify-center font-serif italic font-bold text-black text-xs" style="background:linear-gradient(135deg,#a07830,#c9a84c)">CM</div><div><div class="font-serif font-semibold text-[#f5edd8] text-sm">CapitalFlow Fan</div><div class="font-mono text-xs text-[#7a6a50]">Member since 2024</div></div></div>
+          <span class="font-serif italic text-[#c9a84c] text-sm">★★★★★</span>
+        </div>
+        <p class="font-serif italic text-[#7a6a50] text-sm leading-relaxed">"Great community! Knowledgeable and simply awesome people, purposeful administrators. You'll definitely get your money's worth and more. Check out the CapitalFlow app — it's on another level. JT delivers real value every single day inside this group."</p>
+        <div class="mt-4 inline-flex items-center gap-1.5 rounded-full px-3 py-1.5" style="background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.15)"><svg class="w-3 h-3 text-[#c9a84c]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span class="font-mono text-xs text-[#c9a84c] font-bold">Verified</span></div>
+      </div>
+
+      <div class="rounded-2xl p-6 ch rev d1" style="background:#141416;border:1px solid rgba(201,168,76,.08)">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-2.5"><div class="w-9 h-9 rounded-xl flex items-center justify-center font-serif italic font-bold text-black text-xs" style="background:#a8a9ad">LD</div><div><div class="font-serif font-semibold text-[#f5edd8] text-sm">Leadership Disciple</div><div class="font-mono text-xs text-[#7a6a50]">April 2024</div></div></div>
+          <span class="font-serif italic text-[#c9a84c] text-sm">★★★★★</span>
+        </div>
+        <p class="font-serif italic text-[#7a6a50] text-sm leading-relaxed">"This is definitely a great group. Profound Leadership with consistency. If you're looking to elevate your finances with discipline and consistency, you will see a difference. From Beginner to Expert and all levels, they have the right approach to accommodate everyone. Join the group now."</p>
+        <div class="mt-4 inline-flex items-center gap-1.5 rounded-full px-3 py-1.5" style="background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.15)"><svg class="w-3 h-3 text-[#c9a84c]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span class="font-mono text-xs text-[#c9a84c] font-bold">Verified</span></div>
+      </div>
+
+      <div class="rounded-2xl p-6 ch rev d2" style="background:#141416;border:1px solid rgba(201,168,76,.08)">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-2.5"><div class="w-9 h-9 rounded-xl flex items-center justify-center font-serif italic font-bold text-black text-xs" style="background:linear-gradient(135deg,#a07830,#f0d080)">TE</div><div><div class="font-serif font-semibold text-[#f5edd8] text-sm">All-Level Member</div><div class="font-mono text-xs text-[#7a6a50]">Full-time employee · No prior knowledge</div></div></div>
+          <span class="font-serif italic text-[#c9a84c] text-sm">★★★★★</span>
+        </div>
+        <p class="font-serif italic text-[#7a6a50] text-sm leading-relaxed">"I am loving Impact Investments — their Discord makes it super easy to trade and make money. Admins are always available for questions. Live calls are held every day if you want to listen in. Came in with zero knowledge of trading — now making consistent returns."</p>
+        <div class="mt-4 inline-flex items-center gap-1.5 rounded-full px-3 py-1.5" style="background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.15)"><svg class="w-3 h-3 text-[#c9a84c]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span class="font-mono text-xs text-[#c9a84c] font-bold">Verified</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIER OVERVIEW -->
+<section class="py-20" id="tiers" style="background:#111113;border-top:1px solid rgba(201,168,76,.08)">
+  <div class="max-w-7xl mx-auto px-5 lg:px-10">
+    <div class="text-center mb-12 rev">
+      <div class="rule-gold mb-6 max-w-xs mx-auto"></div>
+      <span class="sec-num">Four Tiers · One Community</span>
+      <h2 class="font-serif font-bold text-[#f5edd8] mt-3" style="font-size:clamp(2rem,4vw,3.5rem);line-height:1.05">
+        Choose Your <em class="text-gold-grad">Level of Access.</em>
+      </h2>
+      <p class="text-[#7a6a50] text-base max-w-xl mx-auto mt-3 font-light">Every tier connects you to the same community and culture. The tiers determine the depth of access to signals, CapitalFlow.app features, and direct expert interaction.</p>
+    </div>
+    <!-- Quick tier comparison -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <a href="https://whop.com/impact-investments/bronze-access-fc?a=digitalartlab" class="rounded-2xl p-6 text-center ch rev bronze-card no-underline" style="background:#141416;border:1px solid rgba(205,127,50,.2);transition:all .25s">
+        <div class="font-serif italic font-bold tier-bronze mb-2" style="font-size:2.5rem;line-height:1">Bronze</div>
+        <div class="font-serif font-bold text-[#f5edd8] text-2xl mb-1">$20<span class="text-base font-normal">/mo</span></div>
+        <div class="font-mono text-[9px] text-[#7a6a50] uppercase tracking-wider mb-4">Entry Access</div>
+        <div class="font-mono text-xs text-[#cd7f32] font-bold">Explore →</div>
+      </a>
+      <a href="https://whop.com/impact-investments/silver-access-1f?a=digitalartlab" class="rounded-2xl p-6 text-center ch rev d1 silver-card no-underline" style="background:#141416;border:1px solid rgba(168,169,173,.2);transition:all .25s">
+        <div class="font-serif italic font-bold tier-silver mb-2" style="font-size:2.5rem;line-height:1">Silver</div>
+        <div class="font-serif font-bold text-[#f5edd8] text-2xl mb-1">$65<span class="text-base font-normal">/mo</span></div>
+        <div class="font-mono text-[9px] text-[#7a6a50] uppercase tracking-wider mb-4">Enhanced Access</div>
+        <div class="font-mono text-xs text-[#a8a9ad] font-bold">Explore →</div>
+      </a>
+      <a href="https://whop.com/impact-investments/gold-tier-f5?a=digitalartlab" class="rounded-2xl p-6 text-center ch rev d2 gold-card no-underline" style="background:linear-gradient(135deg,rgba(201,168,76,.08),rgba(20,20,22,1));border:1px solid rgba(201,168,76,.3);transition:all .25s">
+        <div class="font-serif italic font-bold tier-gold mb-2" style="font-size:2.5rem;line-height:1">Gold</div>
+        <div class="font-serif font-bold text-[#f5edd8] text-2xl mb-1">$100<span class="text-base font-normal">/mo</span></div>
+        <div class="font-mono text-[9px] text-[#7a6a50] uppercase tracking-wider mb-4">VIP Access</div>
+        <div class="font-mono text-xs text-[#c9a84c] font-bold">Top Pick ✦</div>
+      </a>
+      <a href="https://whop.com/impact-investments/impact-lifetime-membership-one-time-payment?a=digitalartlab" class="rounded-2xl p-6 text-center ch rev d3 plat-card no-underline" style="background:linear-gradient(135deg,rgba(201,168,76,.12),rgba(20,20,22,1));border:1px solid rgba(201,168,76,.4);transition:all .25s">
+        <div class="font-serif italic font-bold tier-plat mb-2" style="font-size:2.5rem;line-height:1">Life</div>
+        <div class="font-serif font-bold text-[#f5edd8] text-2xl mb-1">$2,000<span class="text-sm font-normal"> once</span></div>
+        <div class="font-mono text-[9px] text-[#7a6a50] uppercase tracking-wider mb-4">Forever Access</div>
+        <div class="font-mono text-xs text-[#e2c068] font-bold">No Monthly Fee ✦</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FULL PRICING -->
+<section class="py-28" id="pricing" style="background:#0c0c0e;border-top:1px solid rgba(201,168,76,.08)">
+  <div class="max-w-5xl mx-auto px-5 lg:px-10">
+    <div class="text-center mb-14 rev">
+      <div class="rule-gold mb-6 max-w-xs mx-auto"></div>
+      <span class="sec-num">Membership Pricing</span>
+      <h2 class="font-serif font-bold text-[#f5edd8] mt-3" style="font-size:clamp(2rem,4vw,3.8rem);line-height:1.05">
+        Every Tier. <em class="text-gold-grad">30% Affiliate.</em>
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+      <!-- Bronze -->
+      <div class="rounded-2xl p-8 ch rev bronze-card" style="background:#141416;border:1px solid rgba(205,127,50,.2);transition:all .25s">
+        <div class="flex items-start justify-between mb-5">
+          <div>
+            <div class="font-mono text-[10px] text-[#cd7f32]/60 uppercase tracking-widest mb-2">Entry Tier</div>
+            <div class="font-serif italic font-bold tier-bronze" style="font-size:3rem;line-height:1">Bronze</div>
+          </div>
+          <div class="text-right">
+            <div class="font-serif font-bold text-[#f5edd8]" style="font-size:2.5rem;line-height:1">$20</div>
+            <div class="font-mono text-xs text-[#7a6a50] mt-0.5">/ month</div>
+          </div>
+        </div>
+        <div class="h-px mb-6" style="background:rgba(205,127,50,.15)"></div>
+        <ul class="space-y-2.5 mb-7 text-sm text-[#7a6a50] font-light">
+          <li class="check-gold">Discord community access</li>
+          <li class="check-gold">Educational library</li>
+          <li class="check-gold">CapitalFlow.app (entry level)</li>
+          <li class="check-gold">Daily live call access</li>
+          <li class="check-gold" style="color:#c9a84c"><strong class="text-[#c9a84c]">30% affiliate commission</strong></li>
+        </ul>
+        <a href="https://whop.com/impact-investments/bronze-access-fc?a=digitalartlab"
+           class="block text-center font-semibold text-sm px-6 py-3.5 rounded-xl no-underline transition-all"
+           style="border:1px solid rgba(205,127,50,.3);color:#cd7f32">
+          Join Bronze →
+        </a>
+      </div>
+
+      <!-- Silver -->
+      <div class="rounded-2xl p-8 ch rev d1 silver-card" style="background:#141416;border:1px solid rgba(168,169,173,.2);transition:all .25s">
+        <div class="flex items-start justify-between mb-5">
+          <div>
+            <div class="font-mono text-[10px] text-[#a8a9ad]/60 uppercase tracking-widest mb-2">Enhanced Tier</div>
+            <div class="font-serif italic font-bold tier-silver" style="font-size:3rem;line-height:1">Silver</div>
+          </div>
+          <div class="text-right">
+            <div class="font-serif font-bold text-[#f5edd8]" style="font-size:2.5rem;line-height:1">$65</div>
+            <div class="font-mono text-xs text-[#7a6a50] mt-0.5">/ month</div>
+          </div>
+        </div>
+        <div class="h-px mb-6" style="background:rgba(168,169,173,.15)"></div>
+        <ul class="space-y-2.5 mb-7 text-sm text-[#7a6a50] font-light">
+          <li class="check-gold">Everything in Bronze +</li>
+          <li class="check-gold">Enhanced signal access</li>
+          <li class="check-gold">CapitalFlow.app (enhanced)</li>
+          <li class="check-gold">Priority admin support</li>
+          <li class="check-gold">More direct mentorship</li>
+          <li class="check-gold" style="color:#c9a84c"><strong class="text-[#c9a84c]">30% affiliate commission</strong></li>
+        </ul>
+        <a href="https://whop.com/impact-investments/silver-access-1f?a=digitalartlab"
+           class="block text-center font-semibold text-sm px-6 py-3.5 rounded-xl no-underline transition-all"
+           style="border:1px solid rgba(168,169,173,.3);color:#a8a9ad">
+          Join Silver →
+        </a>
+      </div>
+
+      <!-- Gold — featured -->
+      <div class="rounded-2xl p-8 ch rev gold-card relative" style="background:linear-gradient(135deg,rgba(201,168,76,.08),rgba(160,120,48,.04),rgba(20,20,22,1));border:2px solid rgba(201,168,76,.3);transition:all .25s">
+        <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 text-black text-xs font-bold px-5 py-1.5 rounded-full whitespace-nowrap" style="background:linear-gradient(135deg,#a07830,#c9a84c)">✦ Most Popular · VIP Access</div>
+        <div class="flex items-start justify-between mb-5 mt-2">
+          <div>
+            <div class="font-mono text-[10px] text-[#c9a84c]/60 uppercase tracking-widest mb-2">Gold VIP Tier</div>
+            <div class="font-serif italic font-bold tier-gold" style="font-size:3rem;line-height:1">Gold</div>
+          </div>
+          <div class="text-right">
+            <div class="font-serif font-bold text-[#f5edd8]" style="font-size:2.5rem;line-height:1">$100</div>
+            <div class="font-mono text-xs text-[#7a6a50] mt-0.5">/ month</div>
+          </div>
+        </div>
+        <div class="h-px mb-6" style="background:rgba(201,168,76,.2)"></div>
+        <ul class="space-y-2.5 mb-7 text-sm text-[#c8b99a] font-light">
+          <li class="check-gold">Everything in Silver +</li>
+          <li class="check-gold">Full CapitalFlow.app VIP access</li>
+          <li class="check-gold">All real-time signals</li>
+          <li class="check-gold">Daily live trading calls</li>
+          <li class="check-gold">Direct JT access</li>
+          <li class="check-gold">Advanced strategy sessions</li>
+          <li class="check-gold" style="color:#c9a84c"><strong class="text-[#c9a84c]">30% affiliate commission</strong></li>
+        </ul>
+        <a href="https://whop.com/impact-investments/gold-tier-f5?a=digitalartlab"
+           class="block text-center text-black font-bold text-base px-6 py-4 rounded-xl no-underline transition-all"
+           style="background:linear-gradient(135deg,#a07830,#c9a84c,#e2c068);box-shadow:0 4px 16px rgba(201,168,76,.25)">
+          ✦ Join Gold VIP
+        </a>
+      </div>
+
+      <!-- Lifetime -->
+      <div class="rounded-2xl p-8 ch rev d1 plat-card" style="background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(20,20,22,1));border:1px solid rgba(201,168,76,.35);transition:all .25s">
+        <div class="flex items-start justify-between mb-5">
+          <div>
+            <div class="font-mono text-[10px] text-[#e2c068]/60 uppercase tracking-widest mb-2">One-Time Payment</div>
+            <div class="font-serif italic font-bold tier-plat" style="font-size:3rem;line-height:1">Lifetime</div>
+          </div>
+          <div class="text-right">
+            <div class="font-serif font-bold text-[#f5edd8]" style="font-size:2.5rem;line-height:1">$2,000</div>
+            <div class="font-mono text-xs text-[#c9a84c] mt-0.5 font-bold">One payment · Forever</div>
+          </div>
+        </div>
+        <div class="h-px mb-6" style="background:rgba(201,168,76,.2)"></div>
+        <ul class="space-y-2.5 mb-7 text-sm text-[#c8b99a] font-light">
+          <li class="check-gold">Unlimited access · All features forever</li>
+          <li class="check-gold">No further subscription fees</li>
+          <li class="check-gold">All current and future resources</li>
+          <li class="check-gold">Priority access to new tools</li>
+          <li class="check-gold">Lifetime in a growing community</li>
+          <li class="check-gold" style="color:#c9a84c"><strong class="text-[#c9a84c]">30% affiliate commission</strong></li>
+        </ul>
+        <a href="https://whop.com/impact-investments/impact-lifetime-membership-one-time-payment?a=digitalartlab"
+           class="block text-center font-bold text-base px-6 py-4 rounded-xl no-underline transition-all"
+           style="border:1px solid rgba(201,168,76,.35);color:#e2c068">
+          Secure Lifetime Access →
+        </a>
+      </div>
+    </div>
+
+    <!-- Affiliate callout -->
+    <div class="mt-6 rounded-2xl p-7 flex flex-col md:flex-row items-center justify-between gap-6 rev" style="background:#141416;border:1px solid rgba(201,168,76,.15)">
+      <div>
+        <div class="sec-num mb-2">Affiliate Programme</div>
+        <h3 class="font-serif italic font-bold text-[#f5edd8] text-2xl mb-2">Refer Any Tier. Earn 30%. Every Month.</h3>
+        <p class="text-[#7a6a50] text-sm font-light max-w-lg">Share your Whop affiliate link and earn 30% recurring commission on every member you refer — to any of the four tiers. Bronze, Silver, Gold, or Lifetime. Paid automatically through Whop.</p>
+      </div>
+      <div class="text-center flex-shrink-0">
+        <div class="font-serif italic font-bold text-gold-grad" style="font-size:4.5rem;line-height:1">30%</div>
+        <div class="font-mono text-[10px] text-[#7a6a50] uppercase tracking-widest mt-1">All 4 Tiers · Recurring</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="py-24" id="faq" style="background:#111113;border-top:1px solid rgba(201,168,76,.08)">
+  <div class="max-w-4xl mx-auto px-5 lg:px-10">
+    <div class="text-center mb-12 rev">
+      <div class="rule-gold mb-6 max-w-xs mx-auto"></div>
+      <span class="sec-num">Frequently Asked</span>
+      <h2 class="font-serif font-bold text-[#f5edd8] mt-3" style="font-size:clamp(2rem,4vw,3.5rem);line-height:1.05">
+        Questions Answered.
+      </h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="rounded-2xl p-6 ch rev" style="background:#141416;border:1px solid rgba(201,168,76,.08)">
+        <div class="font-serif font-semibold text-[#f5edd8] text-base mb-3">Can I join if I'm a complete beginner?</div>
+        <div class="text-[#7a6a50] text-sm leading-relaxed font-light">Yes — Impact Investments explicitly serves beginners. The educational library, admins available around the clock, and a community culture of helping each new member means you'll never be left behind. Many of Impact's most successful members entered with zero knowledge.</div>
+      </div>
+      <div class="rounded-2xl p-6 ch rev d1" style="background:#141416;border:1px solid rgba(201,168,76,.08)">
+        <div class="font-serif font-semibold text-[#f5edd8] text-base mb-3">What is CapitalFlow.app?</div>
+        <div class="text-[#7a6a50] text-sm leading-relaxed font-light">CapitalFlow.app is Impact's proprietary option flow service — tracking institutional-level order activity in real time. When smart money makes unusual sweeps or blocks in the options market, you see it instantly. Exclusively available to Impact members across all tiers.</div>
+      </div>
+      <div class="rounded-2xl p-6 ch rev" style="background:#141416;border:1px solid rgba(201,168,76,.08)">
+        <div class="font-serif font-semibold text-[#f5edd8] text-base mb-3">Which tier should I start with?</div>
+        <div class="text-[#7a6a50] text-sm leading-relaxed font-light">Bronze at $20/month lets you explore Impact risk-free. Gold at $100/month is the recommended starting point for serious traders — full signal access, VIP CapitalFlow, and direct JT interaction. Lifetime at $2,000 is ideal for committed long-term members who want to remove monthly fees entirely.</div>
+      </div>
+      <div class="rounded-2xl p-6 ch rev d1" style="background:#141416;border:1px solid rgba(201,168,76,.08)">
+        <div class="font-serif font-semibold text-[#f5edd8] text-base mb-3">Is there help available if I get confused?</div>
+        <div class="text-[#7a6a50] text-sm leading-relaxed font-light">Yes. Admins are always available to assist. The community culture is one where members actively help each other. Multiple reviews specifically praise how supportive and patient the Impact team is with members at every level — beginner to expert.</div>
+      </div>
+      <div class="rounded-2xl p-6 ch rev" style="background:#141416;border:1px solid rgba(201,168,76,.08)">
+        <div class="font-serif font-semibold text-[#f5edd8] text-base mb-3">Can I benefit if I work full-time?</div>
+        <div class="text-[#7a6a50] text-sm leading-relaxed font-light">Yes. Impact explicitly serves busy professionals. The signal service, CapitalFlow alerts, and daily call recordings allow you to benefit even with limited screen time. You don't need to watch the markets all day to profit from Impact's insights.</div>
+      </div>
+      <div class="rounded-2xl p-6 ch rev d1" style="background:#141416;border:1px solid rgba(201,168,76,.08)">
+        <div class="font-serif font-semibold text-[#f5edd8] text-base mb-3">How does the 30% affiliate work?</div>
+        <div class="text-[#7a6a50] text-sm leading-relaxed font-light">Share your Whop affiliate link. Earn 30% recurring commission on every member who joins any of the four tiers — Bronze, Silver, Gold, or Lifetime — through your link. Paid automatically through Whop. No minimums.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="py-36 relative overflow-hidden" style="background:#0c0c0e">
+  <div class="absolute inset-0">
+    <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1800&q=50&auto=format&fit=crop"
+         alt="" class="w-full h-full object-cover" style="filter:saturate(.15) brightness(.1)">
+    <div class="absolute inset-0" style="background:linear-gradient(135deg,rgba(12,12,14,.98),rgba(20,15,5,.95))"></div>
+  </div>
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[600px] rounded-full pointer-events-none" style="background:radial-gradient(ellipse,rgba(201,168,76,.08) 0%,transparent 65%)"></div>
+
+  <div class="relative z-10 max-w-4xl mx-auto px-5 text-center">
+    <div class="rule-gold mb-8 max-w-xs mx-auto"></div>
+    <div class="sec-num mb-4">Impact Investments · Est. 2022</div>
+    <h2 class="font-serif font-bold text-[#f5edd8] mb-6" style="font-size:clamp(2.5rem,7vw,7rem);line-height:.92">
+      From Potential<br>to <em class="text-gold-grad-anim">Profits.</em>
+    </h2>
+    <div class="rule-gold mb-8 max-w-xs mx-auto"></div>
+    <p class="text-[#7a6a50] text-lg max-w-2xl mx-auto leading-relaxed mb-12 font-light">
+      Whether you're a complete beginner or an experienced trader — Impact Investments has the tier, the tools, and the community to take you further. Start at $20. Go all-in with Lifetime. The family is waiting.
+    </p>
+    <div class="flex flex-wrap gap-4 justify-center mb-12">
+      <a href="https://whop.com/impact-investments/gold-tier-f5?a=digitalartlab"
+         class="inline-flex items-center gap-2 text-black font-bold text-lg px-10 py-5 rounded-xl transition-all no-underline"
+         style="background:linear-gradient(135deg,#a07830,#c9a84c,#e2c068);box-shadow:0 8px 28px rgba(201,168,76,.3)">
+        ✦ Join Impact Investments
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+      </a>
+      <a href="https://whop.com/impact-investments?a=digitalartlab"
+         class="inline-flex items-center gap-2 text-[#c9a84c] font-medium text-lg px-10 py-5 rounded-xl transition-all no-underline"
+         style="border:1px solid rgba(201,168,76,.22)">
+        View All Tiers on Whop
+      </a>
+    </div>
+    <div class="flex flex-wrap items-center justify-center gap-5 text-sm text-[#7a6a50] font-mono">
+      <span>Bronze $20</span><span class="text-[#c9a84c]">·</span><span>Silver $65</span><span class="text-[#c9a84c]">·</span><span>Gold $100</span><span class="text-[#c9a84c]">·</span><span>Lifetime $2,000</span><span class="text-[#c9a84c]">·</span><span>30% Affiliate</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="background:#0c0c0e;border-top:1px solid rgba(201,168,76,.1);padding:56px 0 32px">
+  <div class="max-w-7xl mx-auto px-5 lg:px-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-14">
+      <div>
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,#a07830,#c9a84c)"><span class="font-serif italic font-bold text-black text-sm">II</span></div>
+          <div><div class="font-serif font-bold text-[#f5edd8] text-lg leading-none">Impact Investments</div><div class="font-mono text-[9px] text-[#c9a84c]/40 uppercase tracking-widest mt-0.5">Premier Trading Community</div></div>
+        </div>
+        <p class="text-sm leading-relaxed mb-5 max-w-xs font-light" style="color:#7a6a50">Empowering stock and options traders of all levels since 2022. Founded by JT @tjthetrader. CapitalFlow.app, real-time signals, and daily live calls.</p>
+        <div class="flex gap-2">
+          <a href="https://whop.com/impact-investments?a=digitalartlab" class="w-9 h-9 rounded-lg flex items-center justify-center font-bold text-sm no-underline" style="background:#141416;border:1px solid rgba(201,168,76,.12);color:#7a6a50">W</a>
+        </div>
+      </div>
+      <div>
+        <div class="font-mono text-[10px] uppercase tracking-widest mb-5" style="color:rgba(201,168,76,.3)">Tiers</div>
+        <ul class="space-y-3 list-none">
+          <li><a href="https://whop.com/impact-investments/bronze-access-fc?a=digitalartlab" class="text-sm no-underline font-light" style="color:#7a6a50">Bronze — $20/month</a></li>
+          <li><a href="https://whop.com/impact-investments/silver-access-1f?a=digitalartlab" class="text-sm no-underline font-light" style="color:#7a6a50">Silver — $65/month</a></li>
+          <li><a href="https://whop.com/impact-investments/gold-tier-f5?a=digitalartlab" class="text-sm no-underline font-light" style="color:#7a6a50">Gold VIP — $100/month</a></li>
+          <li><a href="https://whop.com/impact-investments/impact-lifetime-membership-one-time-payment?a=digitalartlab" class="text-sm no-underline font-light" style="color:#7a6a50">Lifetime — $2,000</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="font-mono text-[10px] uppercase tracking-widest mb-5" style="color:rgba(201,168,76,.3)">Features</div>
+        <ul class="space-y-3 list-none">
+          <li><span class="text-sm font-light" style="color:#7a6a50">CapitalFlow.app</span></li>
+          <li><span class="text-sm font-light" style="color:#7a6a50">Real-Time Signals</span></li>
+          <li><span class="text-sm font-light" style="color:#7a6a50">Daily Live Calls</span></li>
+          <li><span class="text-sm font-light" style="color:#7a6a50">Education Library</span></li>
+        </ul>
+      </div>
+      <div>
+        <div class="font-mono text-[10px] uppercase tracking-widest mb-5" style="color:rgba(201,168,76,.3)">Community</div>
+        <ul class="space-y-3 list-none">
+          <li><span class="text-sm font-light" style="color:#7a6a50">All Experience Levels</span></li>
+          <li><span class="text-sm font-light" style="color:#7a6a50">JT @tjthetrader</span></li>
+          <li><span class="text-sm font-light" style="color:#7a6a50">30% Affiliate Programme</span></li>
+          <li><a href="https://whop.com/impact-investments?a=digitalartlab" class="text-sm no-underline font-light" style="color:#7a6a50">View on Whop</a></li>
+        </ul>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(201,168,76,.08);padding-top:24px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px">
+      <p class="font-mono text-xs" style="color:rgba(201,168,76,.15)">© 2026 Impact Investments · All rights reserved · @tjthetrader</p>
+      <p class="font-mono text-xs max-w-lg leading-relaxed" style="color:rgba(201,168,76,.1)">Risk Disclosure: Trading stocks and options involves substantial risk of loss. Past performance is not indicative of future results. Always trade with capital you can afford to lose.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+const hb=document.getElementById('ham-btn'),mm=document.getElementById('mob-menu'),ml=document.querySelectorAll('.mob-lnk');
+function tog(fc=false){const o=mm.classList.contains('open');if(fc||o){mm.classList.remove('open');hb.classList.remove('ham-open');hb.setAttribute('aria-expanded','false')}else{mm.classList.add('open');hb.classList.add('ham-open');hb.setAttribute('aria-expanded','true')}}
+hb.addEventListener('click',()=>tog());
+ml.forEach(l=>l.addEventListener('click',()=>tog(true)));
+document.addEventListener('click',e=>{if(!document.querySelector('nav').contains(e.target))tog(true)});
+const ro=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');ro.unobserve(e.target)}})},{threshold:.06,rootMargin:'0px 0px -10px 0px'});
+document.querySelectorAll('.rev').forEach(el=>ro.observe(el));
+window.addEventListener('load',()=>{document.querySelectorAll('.rev:not(.vis)').forEach(el=>{const r=el.getBoundingClientRect();if(r.top<window.innerHeight+100)el.classList.add('vis')})});
+window.addEventListener('scroll',()=>{document.querySelector('nav').style.boxShadow=window.scrollY>60?'0 4px 30px rgba(0,0,0,.8)':'none'});
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',function(e){const t=document.querySelector(this.getAttribute('href'));if(t){e.preventDefault();window.scrollTo({top:t.getBoundingClientRect().top+window.scrollY-72,behavior:'smooth'})}})});
+</script>
+</body>
+</html>
